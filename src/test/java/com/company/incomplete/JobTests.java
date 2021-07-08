@@ -9,17 +9,18 @@ import org.junit.jupiter.api.Test;
 
 public class JobTests {
 
-    Job job1;
-    Job job2;
-    Job job3;
+    private static Job job1;
+    private static Job job2;
+    private static Job job3;
+    private static Job testJob;
 
 
-    @BeforeEach
-    public void createJobObject() {
+    @BeforeAll
+    private static void createJobObject() {
         job1 = new Job();
         job2 = new Job();
         job3 = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
-
+        testJob = new Job("Software Eng. 1", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
     }
 
     // you can rename the tests, or delete them and rewrite them from scratch, but I went ahead and provided you the names of tests I created -- I followed the writeup pretty honestly
@@ -51,8 +52,15 @@ public class JobTests {
     // I found the instructions around the three toString() tests a little confusing, so I created three tests following the three bullet points:
     // you can follow TDD if you want, or you can write the implementation first and then get the tests to pass, either is a fine approach
     @Test
-    public void testToStringContainsBlankLines() {
-
+    public void testToStringIsFormattedProperly() {
+        String expectedToStringOutput =
+                "ID: 3\n" +
+                        "Name: Product tester\n" +
+                        "Employer: ACME\n" +
+                        "Location: Desert\n" +
+                        "Position Type: Quality control\n" +
+                        "Core Competency: Persistence\n";
+        Assertions.assertEquals(expectedToStringOutput, job3.toString());
     }
 
     @Test
@@ -66,9 +74,8 @@ public class JobTests {
 
     @Test
     public void testToStringDataNotAvailable() {
-        Job testJob = new Job("Software Eng. 1", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
         String expectedToStringOutput =
-                "ID: 0\n" +
+                "ID: 4\n" +
                         "Name: Software Eng. 1\n" +
                         "Employer: Data not available\n" +
                         "Location: Data not available\n" +
@@ -76,4 +83,5 @@ public class JobTests {
                         "Core Competency: Data not available\n";
         Assertions.assertEquals(expectedToStringOutput, testJob.toString());
 
-    }}
+    }
+}
