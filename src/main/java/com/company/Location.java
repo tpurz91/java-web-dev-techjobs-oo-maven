@@ -13,8 +13,8 @@ public class Location {
         nextId++;
     }
 
-    public Location(int id, String value) {
-        this.id = id;
+    public Location( String value) {
+        this();
         this.value = value;
     }
 
